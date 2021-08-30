@@ -41,7 +41,7 @@ describe('When Logged in and clicked on the + button', () => {
       await page.waitFor('.card');
 
       const title = await page.getContentsOf('.card-title');
-      const content = await age.getContentsOf('p');
+      const content = await page.getContentsOf('p');
 
       expect(title).toEqual('Title from test');
       expect(content).toEqual('Body from test');
