@@ -4,7 +4,11 @@ const userFactory = require('../factories/userFactory');
 
 class CustomPage {
   static async build() {
-    const browser = await puppeteer.launch({ headless: false, timeout: 30000 });
+    const browser = await puppeteer.launch({
+      headless: true,
+      timeout: 30000,
+      args: ['--no-sandbox'],
+    });
     const page = await browser.newPage();
 
     const customPage = new CustomPage(page);
@@ -27,7 +31,7 @@ class CustomPage {
     // // Setting the key on the page
     await this.page.setCookie({ name: 'session', value: session });
     await this.page.setCookie({ name: 'session.sig', value: sig });
-    await this.page.goto('localhost:3000/blogs');
+    await this.page.goto('http://localhost:3000/blogs');
     // // This is necessary because when the test is runing, it will atempt to run as fast as possible, and the this.page wont have loaded when it reaches the line below
     await this.page.waitFor('a[href="/auth/logout"]');
   }

@@ -1,0 +1,33 @@
+language: node_js
+node_js:
+  - '8'
+
+# sistema operacional
+dist: trusty
+# services sao como databases ou coisas de codigo externo para que nosso codigo rode, ex:  mongodb, redis etc
+# quando o travis comecar o sistema trusty ele vai subir uma copia de mongo e redis tb
+services:
+  - mongodb
+  - redis-server
+
+# variaveis que queremos rodar no projeto
+env:
+  - NODE_ENV=ci PORT=3000
+
+# aqui agnt ta cacheando os node_module para caso nao tenha mudanca, ele rodar o install bem mais rapido
+cache:
+  directories:
+    - node_modules
+    - client/node_modules
+
+# comandos que agnt quer que rodar para o travis iniciar o projeto
+install:
+  - npm install
+  - npm run build
+
+# Similar com o comando de install
+script:
+  - nohup npm run start &
+  # Espere por 3 segundos
+  - sleep 3
+  - npm run test
