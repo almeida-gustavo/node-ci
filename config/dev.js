@@ -5,4 +5,6 @@ module.exports = {
   mongoURI: process.env.MONGO_URI,
   cookieKey: '123123123',
   redisUrl: 'redis://127.0.0.1:6379',
+  accessKeyId: process.env.S3_ACCESS_KEY_ID,
+  secretAccessKey: process.env.S3_ACCESS_KEY_SECRET,
 };
